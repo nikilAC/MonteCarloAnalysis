@@ -2033,7 +2033,7 @@ if __name__ == "__main__":
 
         run_comparison = st.button("Run Comparison")
 
-        show_annotations = st.checkbox("Show Annotations?")
+        show_annotations = st.checkbox("Show Annotations (must re-confirm selection after)?")
         if run_comparison:
             try:
 
