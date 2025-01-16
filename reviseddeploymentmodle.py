@@ -1583,34 +1583,31 @@ def load_saved_scenarios(scenario_manager, n_scenarios):
     
     selected = []
     st.write("### Scenario Selection")
-
-    for i in range(min(n_scenarios, len(available_scenarios))): 
-        options = [scenario[0] for scenario in available_scenarios if scenario[0] not in selected]
         
-        if options:  # Ensure there are still options to choose from
-            choice = st.selectbox(f"Select scenario {i+1}", options, key=f"scenario_{i}")
-            if st.button(f"Confirm selection for Scenario {i+1}", key=f"confirm_{i}"):
-                selected.append(choice)
-                st.success(f"Scenario {i+1} selected: {choice}")
-        else:
-            st.warning("No more scenarios available for selection.")
-            break
-    for name in selected:
-        try:
-            params = scenario_manager.load_scenario(name)
-            # Remove timestamp from params if it exists
-            params.pop('timestamp', None)
-            model = DACDeploymentModel(**params)
-            results = model.calculate_deployment()
-            scenarios.append({
-                'name': name,
-                'params': params,
-                'results': results,
-                'carbon_budget': model.calculate_carbon_budget(results)
-            })
-        except Exception as e:
-            print(f"Error loading scenario '{name}': {str(e)}")
-    
+    options = [scenario[0] for scenario in available_scenarios if scenario[0] not in selected]
+    selected_scenarios = st.multiselect(
+        "Select scenarios:",
+        options,
+        key="scenario_multiselect",
+        help=f"Select up to {min(n_scenarios, len(available_scenarios))} scenarios."
+    )
+    if st.button("Confirm Selection"):
+        for name in selected:
+            try:
+                params = scenario_manager.load_scenario(name)
+                # Remove timestamp from params if it exists
+                params.pop('timestamp', None)
+                model = DACDeploymentModel(**params)
+                results = model.calculate_deployment()
+                scenarios.append({
+                    'name': name,
+                    'params': params,
+                    'results': results,
+                    'carbon_budget': model.calculate_carbon_budget(results)
+                })
+            except Exception as e:
+                print(f"Error loading scenario '{name}': {str(e)}")
+        
     return scenarios
 
 def create_new_scenarios(scenario_manager, n_scenarios):
