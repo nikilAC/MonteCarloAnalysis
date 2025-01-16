@@ -1091,7 +1091,7 @@ def run_target_based_analysis():
         target_temp = temp_choice
 
         target_prob = st.number_input(
-            f"Desired probability (0-1) of avoiding {target_temp}°C:",
+            f"Desired probability (0-1) of avoiding choice of temperature:",
             min_value=0.0,
             max_value=1.0,
             value=0.5
@@ -1130,7 +1130,10 @@ def run_target_based_analysis():
                         
                         # Print results
                         st.write(f"\nResults for {target_temp}°C target:")
-                        prob_col = f"prob_{str(target_temp).replace('.', '_')}C"
+                        if target_temp == 2:
+                            prob_col = f"prob_{str(target_temp)}_0C"
+                        else:
+                            prob_col = f"prob_{str(target_temp)}C"
                         actual_prob = results_df[prob_col].mean()
                         st.write(f"Probability of staying below {target_temp}°C: {actual_prob:.3f}")
                         st.write(f"Target probability: {target_prob:.3f}")
