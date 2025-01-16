@@ -1,0 +1,42 @@
+{
+    "create": {
+        "start_year": 2024,
+        "end_year": 2075,
+        "midpoint_year": 2035,
+        "max_gt_capacity": 10.0,
+        "P0": 2.0,
+        "r": 0.5,
+        "v": 1.0,
+        "Q": 1.0,
+        "tonnes_per_unit": 1000.0,
+        "service_life": 20.0,
+        "capacity_factor": 0.9,
+        "learning_rate": 0.2,
+        "bg_growth_rate": 0.01,
+        "decline_start_year": 2040,
+        "decline_rate": 0.02,
+        "capacity_improvement_rate": 0.01,
+        "max_capacity_factor": 1.2,
+        "timestamp": "2025-01-15 21:32:54"
+    },
+    "barrel": {
+        "start_year": 2024,
+        "end_year": 2075,
+        "midpoint_year": 2035,
+        "max_gt_capacity": 10.0,
+        "P0": 2.0,
+        "r": 0.5,
+        "v": 1.0,
+        "Q": 1.0,
+        "tonnes_per_unit": 1000.0,
+        "service_life": 20.0,
+        "capacity_factor": 0.9,
+        "learning_rate": 0.2,
+        "bg_growth_rate": 0.01,
+        "decline_start_year": 2040,
+        "decline_rate": 0.02,
+        "capacity_improvement_rate": 0.01,
+        "max_capacity_factor": 1.2,
+        "timestamp": "2025-01-15 21:33:04"
+    }
+}

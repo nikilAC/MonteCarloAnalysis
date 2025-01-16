@@ -223,6 +223,8 @@ def run_multiple_scenarios(n_scenarios=None):
     
     if choice == 'Compare Saved Scenarios':
         scenarios = load_saved_scenarios(scenario_manager, n_scenarios)
+        st.write(scenarios)
+
     elif choice == 'Create and Compare New Scenarios':
         scenarios = create_new_scenarios(scenario_manager, n_scenarios)
     else:  # choice == 'Mix of Saved and New Scenarios'
@@ -1592,7 +1594,7 @@ def load_saved_scenarios(scenario_manager, n_scenarios):
         help=f"Select up to {min(n_scenarios, len(available_scenarios))} scenarios."
     )
     if st.button("Confirm Selection"):
-        for name in selected:
+        for name in selected_scenarios:
             try:
                 params = scenario_manager.load_scenario(name)
                 # Remove timestamp from params if it exists
@@ -1607,7 +1609,6 @@ def load_saved_scenarios(scenario_manager, n_scenarios):
                 })
             except Exception as e:
                 print(f"Error loading scenario '{name}': {str(e)}")
-        
     return scenarios
 
 def create_new_scenarios(scenario_manager, n_scenarios):
@@ -2025,14 +2026,19 @@ if __name__ == "__main__":
     elif analysis_mode == "Multiple Scenario Comparison":
         st.header("Multiple Scenario Comparison")
         n_scenarios = st.number_input("Number of scenarios to compare:", min_value=1, max_value=3, value=2)
-        scenarios = run_multiple_scenarios(n_scenarios)
+        if 'scenarios' not in st.session_state:
+            st.session_state.scenarios = {}
+        scenarios = st.session_state.scenarios
+        st.session_state.scenarios = run_multiple_scenarios(n_scenarios)
+
         run_comparison = st.button("Run Comparison")
+
         show_annotations = st.checkbox("Show Annotations?")
         if run_comparison:
             try:
-                if scenarios:
+
+                if len(scenarios) > 0:
                     st.write("Scenario Comparison Results:")
-                    st.write(scenarios)
                     
                     fig = plot_scenario_comparison(scenarios, show_annotations)
                     st.pyplot(fig)
