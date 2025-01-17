@@ -1133,7 +1133,7 @@ def run_target_based_analysis():
                         if target_temp == 2:
                             prob_col = f"prob_{str(target_temp)}_0C"
                         else:
-                            prob_col = f"prob_{str(target_temp)}C"
+                            prob_col = f"prob_{str(target_temp).replace('.', '_')}C"
                         actual_prob = results_df[prob_col].mean()
                         st.write(f"Probability of staying below {target_temp}°C: {actual_prob:.3f}")
                         st.write(f"Target probability: {target_prob:.3f}")
@@ -1210,20 +1210,12 @@ def get_parameter_bounds():
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    inputs[f"{param}_min"] = st.number_input(
+                    inputs[f"{param}_min"], inputs[f"{param}_max"] = st.slider(
                         f"Minimum {param}:",
-                        min_value=min_value,
-                        max_value=max_value,
-                        value=min_value,
-                        key=f"{param}_min"
-                    )
-                with col2:
-                    inputs[f"{param}_max"] = st.number_input(
-                        f"Maximum {param}:",
-                        min_value=min_value,
-                        max_value=max_value,
-                        value=max_value,
-                        key=f"{param}_max"
+                        min_value = min_value,
+                        max_value = max_value,
+                        value = (min_value, max_value),
+                        key=f"{param}_range"
                     )
                 bounds[param] = (inputs[f"{param}_min"], inputs[f"{param}_max"])
     # Display final inputs in a clear layout
