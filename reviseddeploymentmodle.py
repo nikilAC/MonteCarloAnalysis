@@ -1210,14 +1210,24 @@ def get_parameter_bounds():
                 col1, col2 = st.columns(2)
                 
                 with col1:
-                    inputs[f"{param}_min"], inputs[f"{param}_max"] = st.slider(
-                        f"Minimum {param}:",
-                        min_value = min_value,
-                        max_value = max_value,
-                        value = (min_value, max_value),
-                        step = .001,
-                        key=f"{param}_range"   
-                    )
+                    if type(min_value) == int:
+                        inputs[f"{param}_min"], inputs[f"{param}_max"] = st.slider(
+                            f"Minimum {param}:",
+                            min_value = min_value,
+                            max_value = max_value,
+                            value = (min_value, max_value),
+                            key=f"{param}_range"
+                        )
+                    else:
+                        inputs[f"{param}_min"], inputs[f"{param}_max"] = st.slider(
+                            f"Minimum {param}:",
+                            min_value = min_value,
+                            max_value = max_value,
+                            value = (min_value, max_value),
+                            step = .001,
+                            key=f"{param}_range"
+                        )
+
                 bounds[param] = (inputs[f"{param}_min"], inputs[f"{param}_max"])
     # Display final inputs in a clear layout
     st.write("### Final Input Values")
