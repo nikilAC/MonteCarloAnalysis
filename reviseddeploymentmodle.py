@@ -1215,7 +1215,8 @@ def get_parameter_bounds():
                         min_value = min_value,
                         max_value = max_value,
                         value = (min_value, max_value),
-                        key=f"{param}_range"
+                        key=f"{param}_range",
+                        step = .001
                     )
                 bounds[param] = (inputs[f"{param}_min"], inputs[f"{param}_max"])
     # Display final inputs in a clear layout
