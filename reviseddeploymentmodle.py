@@ -1652,7 +1652,7 @@ def mix_scenarios(scenario_manager, n_scenarios):
     for i in range(n_scenarios):
         st.write(f"\nScenario {i+1}/{n_scenarios}")
         
-        choice = st.radio("Select Option", ["Hold", "Load Saved Scenario", "Create New Scenario"])
+        choice = st.radio("Select Option", ["Holder", "Load Saved Scenario", "Create New Scenario"])
         
         if choice == 'Load Saved Scenario':
             saved = load_saved_scenarios(scenario_manager, 1)
